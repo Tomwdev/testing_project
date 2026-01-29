@@ -1,6 +1,8 @@
-# Notes App
+# Testing Application for Notes, Projects, Concepts and Tags
 
-A personal productivity application built with Laravel 12. Strong inspriation from the Final Project "Pixel Positions" from the Laracasts "30-days-to-learn-laravel" Course.
+Simple CRUD style application. 
+
+Styling and components branched from the Final Project "Pixel Positions" from the Laracasts "30-days-to-learn-laravel" Course.
 
 ## Overview
 
