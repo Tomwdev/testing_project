@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="grad1" x1="0%" x2="100%" y1="0%" y2="100%">
+   <stop offset="0%" stop-color="#0F2027"/>
+   <stop offset="100%" stop-color="#203A43"/>
+  </linearGradient>
+  <linearGradient id="gradSilver" x1="0%" x2="0%" y1="0%" y2="100%">
+   <stop offset="0%" stop-color="#E6E6E6"/>
+   <stop offset="50%" stop-color="#C0C0C0"/>
+   <stop offset="100%" stop-color="#E6E6E6"/>
+  </linearGradient>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <circle cx="128" cy="128" fill="url(#grad1)" id="svg_1" r="120"/>
+  <circle cx="128" cy="128" fill="none" id="svg_2" r="114" stroke="url(#gradSilver)" stroke-width="4"/>
+  <circle cx="128" cy="128" fill="none" id="svg_3" opacity="0.5" r="95" stroke="url(#gradSilver)"/>
+  <path d="m168.5,78.6c-3.3,0.7 -8.2,1.2 -11.9,1.2c-6.3,0 -9.4,-1.4 -11.4,-5l0,11.2l-3.2,0l0,104c0,7.4 0.9,10.5 4.2,11.6c2.7,0.9 8,1.2 11.6,1.2l0,3.5l-59.4,0l0,-3.5c3.8,0 8.6,-0.3 11.4,-1.2c3.3,-1.1 4.2,-4.2 4.2,-11.6l0,-104l-3,0l0,-11.2c-2,3.6 -5,5 -11.4,5c-3.6,0 -8.6,-0.5 -11.9,-1.2l0,-10.6l80.8,0l0,10.6z" fill="url(#gradSilver)" id="svg_4"/>
+ </g>
+</svg>
