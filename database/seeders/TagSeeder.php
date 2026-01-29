@@ -33,11 +33,6 @@ class TagSeeder extends Seeder
             'React',
             'Angular',
             'Next.js',
-            'Nuxt.js',
-            'Django',
-            'Rails',
-            'Spring Boot',
-            'Express.js',
 
             // Databases
             'MySQL',
@@ -51,32 +46,19 @@ class TagSeeder extends Seeder
             'Git',
             'GitHub',
             'GitLab',
-            'AWS',
-            'Azure',
-            'Kubernetes',
 
             // Frontend
             'Tailwind CSS',
             'Bootstrap',
-            'SASS',
-            'Vite',
-            'Webpack',
 
             // Testing
             'PHPUnit',
             'Pest',
-            'Jest',
-            'Cypress',
 
             // Concepts
             'API',
             'REST',
             'GraphQL',
-            'WebSockets',
-            'Authentication',
-            'Authorization',
-            'Caching',
-            'Queues',
         ];
 
         foreach ($tags as $tagName) {
