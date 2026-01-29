@@ -60,6 +60,7 @@ class ProjectController extends Controller
             $project->tags()->attach($attributes['tags']);
         }
 
+        // logs the activity as a job on the queue
         LogActivity::dispatch($user, 'created', 'project', $project->id);
 
         return redirect('/projects')->with('success', 'Project created successfully.');

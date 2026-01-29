@@ -24,9 +24,8 @@ class SendWelcomeEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        // In a real application, you would send an actual email here
-        // For now, we'll just log that the welcome email would be sent
-        Log::info('Welcome email queued for user', [
+        // Logged job for testing
+        logger('Test Job for Welcome Email', [
             'user_id' => $this->user->id,
             'email' => $this->user->email,
             'name' => $this->user->name,

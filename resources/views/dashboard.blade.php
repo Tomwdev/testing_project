@@ -1,14 +1,11 @@
 <x-layout>
-    <x-page-heading>Dashboard</x-page-heading>
+    <x-page-heading>Home</x-page-heading>
 
     <x-flash-message />
 
     @guest
         <div class="text-center mb-10">
-            <p class="text-white/70 text-lg mb-6">Welcome to Notes App - your personal productivity platform</p>
             <div class="flex justify-center gap-4">
-                <x-link-button href="/register">Get Started</x-link-button>
-                <x-link-button href="/login" variant="secondary">Log In</x-link-button>
             </div>
         </div>
 
@@ -35,8 +32,6 @@
     @endguest
 
     @auth
-
-        {{-- Quick Actions --}}
         <div class="flex justify-center gap-4 mb-10">
             <x-link-button href="/notes/create">New Note</x-link-button>
             <x-link-button href="/projects/create" variant="secondary">New Project</x-link-button>
@@ -44,7 +39,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {{-- Recent Notes --}}
+            {{-- Notes --}}
             <div>
                 <div class="flex justify-between items-center mb-4">
                     <x-section-heading>Recent Notes</x-section-heading>
@@ -69,7 +64,7 @@
                 @endif
             </div>
 
-            {{-- Recent Projects --}}
+            {{-- Projects --}}
             <div>
                 <div class="flex justify-between items-center mb-4">
                     <x-section-heading>Recent Projects</x-section-heading>
@@ -103,7 +98,7 @@
                 @endif
             </div>
 
-            {{-- Recent Concepts --}}
+            {{-- Concepts --}}
             <div>
                 <div class="flex justify-between items-center mb-4">
                     <x-section-heading>Recent Concepts</x-section-heading>
@@ -129,7 +124,7 @@
             </div>
         </div>
 
-        {{-- Tech Stack Tags --}}
+        {{-- Tags --}}
         @if ($tags->isNotEmpty())
             <div class="mt-10">
                 <div class="flex justify-between items-center mb-4">

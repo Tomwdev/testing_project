@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
 
         $user = User::create($attributes);
 
-        // Dispatch welcome email job to the queue
+        // Dispatch welcome email job log to the queue
         SendWelcomeEmail::dispatch($user);
 
         Auth::login($user);

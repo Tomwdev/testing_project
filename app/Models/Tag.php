@@ -20,7 +20,7 @@ class Tag extends Model
      */
     public function notes(): BelongsToMany
     {
-        return $this->belongsToMany(Note::class)->withTimestamps();
+        return $this->belongsToMany(Note::class);
     }
 
     /**
@@ -28,7 +28,7 @@ class Tag extends Model
      */
     public function projects(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class)->withTimestamps();
+        return $this->belongsToMany(Project::class);
     }
 
     /**
@@ -36,6 +36,6 @@ class Tag extends Model
      */
     public function concepts(): BelongsToMany
     {
-        return $this->belongsToMany(Concept::class)->withTimestamps();
+        return $this->belongsToMany(Concept::class);
     }
 }
