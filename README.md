@@ -23,7 +23,7 @@ Notes App lets users manage notes, projects, and learning concepts. Content can 
 ## Installation
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Tomwdev/testing_project
 cd testing_project
 
 composer install
@@ -43,7 +43,7 @@ npm run build
 Start all services at once:
 
 ```bash
-composer dev
+composer run dev
 ```
 
 Or run services individually:
