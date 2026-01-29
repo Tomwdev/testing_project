@@ -27,7 +27,7 @@ class LogActivity implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::info('User activity logged', [
+        logger('User activity logged', [
             'user_id' => $this->user->id,
             'user_name' => $this->user->name,
             'action' => $this->action,

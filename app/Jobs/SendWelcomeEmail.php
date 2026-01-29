@@ -25,7 +25,7 @@ class SendWelcomeEmail implements ShouldQueue
     public function handle(): void
     {
         // Logged job for testing
-        Logger('Test Job for Welcome Email', [
+        logger('Test Job for Welcome Email', [
             'user_id' => $this->user->id,
             'email' => $this->user->email,
             'name' => $this->user->name,
