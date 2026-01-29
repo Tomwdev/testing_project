@@ -1,6 +1,6 @@
 # Notes App
 
-A personal productivity application built with Laravel 12.
+A personal productivity application built with Laravel 12. Strong inspriation from the Final Project "Pixel Positions" from the Laracasts "30-days-to-learn-laravel" Course.
 
 ## Overview
 
