@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
+use App\Models\ActivityLog;
 
 class LogActivity implements ShouldQueue
 {
@@ -27,13 +27,14 @@ class LogActivity implements ShouldQueue
      */
     public function handle(): void
     {
-        logger('User activity logged', [
+        // Appends the full namespace to the model type and sets to upper case first letter
+        $subjectClass = 'App\\Models\\' . ucfirst($this->modelType);
+
+        ActivityLog::create([
             'user_id' => $this->user->id,
-            'user_name' => $this->user->name,
             'action' => $this->action,
-            'model_type' => $this->modelType,
-            'model_id' => $this->modelId,
-            'timestamp' => now()->toDateTimeString(),
+            'subject_type' => $subjectClass,
+            'subject_id' => $this->modelId,
         ]);
     }
 }
