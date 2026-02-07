@@ -545,3 +545,11 @@ See these completed examples in this codebase:
 | Feature             | Job                            | Controller                                   |
 | ------------------- | ------------------------------ | -------------------------------------------- |
 | Bulk Tag Assignment | `app/Jobs/AssignTagToItem.php` | `app/Http/Controllers/BulkTagController.php` |
+
+---
+
+## See Also
+
+- [Batch Jobs Production Reference](Laravel-Batch-Jobs-Production-Reference.md) — Infrastructure, monitoring, advanced patterns
+- [Standard Jobs Guide](../standard-jobs/Laravel-Jobs-Guide.md) — Non-batched job implementation
+- [Standard Jobs Production Reference](../standard-jobs/Laravel-Jobs-Production-Reference.md) — Production patterns for all jobs
