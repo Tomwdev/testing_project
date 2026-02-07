@@ -5,6 +5,7 @@ namespace App\Jobs;
 use Illuminate\Bus\Batchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use App\Jobs\LogActivity;
 
 class AssignTagToItem implements ShouldQueue
 {
@@ -46,5 +47,12 @@ class AssignTagToItem implements ShouldQueue
         } else {
             $model->tags()->detach($this->tagId);
         }
+
+        LogActivity::dispatch(
+            $model->user,
+            $this->action === 'attach' ? 'tagged' : 'untagged',
+            class_basename($this->modelType),
+            $this->modelId
+        );
     }
 }

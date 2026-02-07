@@ -12,7 +12,7 @@ class BulkTagController extends Controller
 {
     public function store(Request $request)
     {
-        // vaidation
+        // Validate the request
         $validated = $request->validate([
             'item_ids' => ['required', 'array', 'min:1'],
             'item_ids.*' => ['integer'],
@@ -33,6 +33,7 @@ class BulkTagController extends Controller
             );
         });
 
+        // Dispatch the batch w/ callbacks for success, failure, and completion
         $batch = Bus::batch($jobs)
             ->name('Bulk tag assignment')
             ->then(function (Batch $batch) {
@@ -53,7 +54,42 @@ class BulkTagController extends Controller
 
         return response()->json([
             'batch_id' => $batch->id,
-            'total_jobs' => $batch->totaljobs,
+            'total_jobs' => $batch->totalJobs,
         ]);
+    }
+
+    public function show(string $batchId)
+    {
+        $batch = Bus::findBatch($batchId);
+
+        if (!$batch) {
+            return response()->json(['error' => 'Batch not found'], 404);
+        }
+
+        return response()->json([
+            'id' => $batch->id,
+            'name' => $batch->name,
+            'total_jobs' => $batch->totalJobs,
+            'pending_jobs' => $batch->pendingJobs,
+            'failed_jobs' => $batch->failedJobs,
+            'progress' => $batch->progress(),
+            'finished' => $batch->finished(),
+            'cancelled' => $batch->cancelled(),
+            'created_at' => $batch->createdAt,
+            'finished_at' => $batch->finishedAt,
+        ]);
+    }
+
+    public function cancel(string $batchId)
+    {
+        $batch = Bus::findBatch($batchId);
+
+        if (!$batch) {
+            return response()->json(['error' => 'Batch not found'], 404);
+        }
+
+        $batch->cancel();
+
+        return response()->json(['cancelled' => true, 'pending_jobs_cancelled' => $batch->pendingJobs]);
     }
 }
