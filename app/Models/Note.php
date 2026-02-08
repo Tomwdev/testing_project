@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\NoteCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,5 +33,12 @@ class Note extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function (Note $note) {
+            event(new NoteCreated($note, $note->user));
+        });
     }
 }
