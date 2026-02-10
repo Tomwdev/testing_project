@@ -30,8 +30,8 @@ class RegisteredUserController extends Controller
 
         $user = User::create($attributes);
 
-        // Dispatch welcome email job log to the queue
-        SendWelcomeEmail::dispatch($user);
+        // This job is now handled by the listener for the UserRegistered event
+        // SendWelcomeEmail::dispatch($user);
 
         Auth::login($user);
 
