@@ -20,7 +20,7 @@ class AssignTagToItem implements ShouldQueue
         public int $tagId,          // Stored as $this->tagId
         public string $action       // Stored as $this->action
     ) {
-        // Constructor is EMPTY - just stores data
+        //
     }
 
     /**
@@ -28,20 +28,16 @@ class AssignTagToItem implements ShouldQueue
      */
     public function handle(): void
     {
-        // Check if batch was cancelled
         if ($this->batch()?->cancelled()) {
             return;
         }
 
-        // Resolve the model dynamically
         $model = $this->modelType::find($this->modelId);
 
-        // Handle case where item was deleted before job ran
         if (!$model) {
             return;
         }
 
-        // Perform the tag operation
         if ($this->action === 'attach') {
             $model->tags()->syncWithoutDetaching([$this->tagId]);
         } else {

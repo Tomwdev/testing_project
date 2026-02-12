@@ -36,7 +36,7 @@ class NoteCreated
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new PrivateChannel('note-created.' . $this->note->id),
         ];
     }
 }
