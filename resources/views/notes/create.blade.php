@@ -8,6 +8,26 @@
     <x-forms.form method="POST" action="/notes">
         <x-forms.input label="Title" name="title" placeholder="Enter note title" required />
 
+        {{-- NEW: Project Selection Dropdown --}}
+        @if ($projects->isNotEmpty())
+            <div class="mb-6">
+                <x-forms.label name="project_id" label="Project (Optional)" />
+                <div class="mt-1">
+                    <select name="project_id" id="project_id"
+                        class="block w-full rounded-xl border-0 bg-white/10 px-4 py-3 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6">
+                        <option value="" class="bg-gray-900 text-gray-400">No Project</option>
+                        @foreach ($projects as $project)
+                            <option value="{{ $project->id }}" class="bg-gray-900 text-white"
+                                {{ old('project_id') == $project->id ? 'selected' : '' }}>
+                                {{ $project->title }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <x-forms.error :error="$errors->first('project_id')" />
+            </div>
+        @endif
+
         <x-forms.textarea label="Body" name="body" rows="8" placeholder="Write your note content here..."
             required />
 

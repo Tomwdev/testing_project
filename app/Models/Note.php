@@ -17,6 +17,7 @@ class Note extends Model
         'user_id',
         'title',
         'body',
+        'project_id',
     ];
 
     /**
@@ -35,10 +36,19 @@ class Note extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
     protected static function booted(): void
     {
         static::created(function (Note $note) {
             event(new NoteCreated($note, $note->user));
+        });
+
+        static::saved(function (Note $note) {
+            \App\Jobs\AnalyzeNoteContent::dispatchAfterResponse($note);
         });
     }
 }

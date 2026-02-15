@@ -44,8 +44,43 @@
             </div>
         </x-panel>
 
+        {{-- NEW: Related Notes Section --}}
+        <div class="mt-8">
+            <h3 class="font-bold text-xl mb-4 text-white">Related Notes</h3>
+
+            @if ($project->notes->isEmpty())
+                <p class="text-white/50 italic">No notes linked to this project yet.</p>
+            @else
+                <div class="grid gap-4">
+                    @foreach ($project->notes as $note)
+                        <a href="/notes/{{ $note->id }}" class="block group">
+                            <x-panel class="hover:border-blue-500/50 transition-colors group-hover:bg-white/5">
+                                <div class="flex justify-between items-start">
+                                    <h4
+                                        class="font-bold text-lg text-white group-hover:text-blue-400 transition-colors">
+                                        {{ $note->title }}</h4>
+                                    <span class="text-xs text-white/50">{{ $note->created_at->diffForHumans() }}</span>
+                                </div>
+                                <p class="text-white/70 mt-2 line-clamp-2 text-sm">{{ Str::limit($note->body, 100) }}
+                                </p>
+
+                                @if ($note->tags->isNotEmpty())
+                                    <div class="mt-3 flex gap-2">
+                                        @foreach ($note->tags as $tag)
+                                            <span
+                                                class="text-[10px] px-2 py-1 rounded bg-white/10 text-white/70 border border-white/10">{{ $tag->name }}</span>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </x-panel>
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+
         @can('update', $project)
-            <div class="flex justify-between items-center mt-6">
+            <div class="flex justify-between items-center mt-12 pt-6 border-t border-white/10">
                 <x-link-button href="/projects/{{ $project->id }}/edit" variant="secondary">Edit Project</x-link-button>
 
                 <form method="POST" action="/projects/{{ $project->id }}"
@@ -53,7 +88,7 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit"
-                        class="bg-red-800 hover:bg-red-700 rounded py-2 px-6 font-bold transition-colors">
+                        class="bg-red-800/80 hover:bg-red-700 text-white rounded-lg py-2 px-6 font-bold transition-colors">
                         Delete Project
                     </button>
                 </form>

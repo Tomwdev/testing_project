@@ -30,8 +30,12 @@ class NoteController extends Controller
     public function create()
     {
         $tags = Tag::all();
+        $projects = Auth::user()
+            ->projects()
+            ->select('id', 'title')
+            ->get();
 
-        return view('notes.create', compact('tags'));
+        return view('notes.create', compact('tags', 'projects'));
     }
 
     /**
@@ -42,6 +46,7 @@ class NoteController extends Controller
         $attributes = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required', 'string'],
+            'project_id' => ['nullable', 'exists:projects,id'],
             'tags' => ['array'],
             'tags.*' => ['exists:tags,id'],
         ]);
@@ -52,6 +57,7 @@ class NoteController extends Controller
         $note = $user->notes()->create([
             'title' => $attributes['title'],
             'body' => $attributes['body'],
+            'project_id' => $attributes['project_id'],
         ]);
 
         if (isset($attributes['tags'])) {
@@ -79,8 +85,12 @@ class NoteController extends Controller
         Gate::authorize('update', $note);
 
         $tags = Tag::all();
+        $projects = Auth::user()
+            ->projects()
+            ->select('id', 'title')
+            ->get();
 
-        return view('notes.edit', compact('note', 'tags'));
+        return view('notes.edit', compact('note', 'tags', 'projects'));
     }
 
     /**
@@ -93,6 +103,7 @@ class NoteController extends Controller
         $attributes = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required', 'string'],
+            'project_id' => ['nullable', 'exists:projects,id'],
             'tags' => ['array'],
             'tags.*' => ['exists:tags,id'],
         ]);
@@ -100,6 +111,7 @@ class NoteController extends Controller
         $note->update([
             'title' => $attributes['title'],
             'body' => $attributes['body'],
+            'project_id' => $attributes['project_id'],
         ]);
 
         $note->tags()->sync($attributes['tags'] ?? []);
