@@ -2,7 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Events\UserRegistered;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Auth\MustVerifyEmail; // Optional check
+use App\Models\User; // <--- Import your User model
 use App\Jobs\CreateDefaultProject;
 use App\Jobs\CreateWelcomeNote;
 use App\Jobs\SeedUserPreferences;
@@ -12,31 +14,25 @@ use Throwable;
 
 class SetupNewUserAccount
 {
-    /**
-     * Create the event listener.
-     */
-    public function __construct()
+    public function handle(Registered $event): void
     {
-        //
-    }
+        /** @var User $user */
+        $user = $event->user;
 
-    /**
-     * Handle the event.
-     */
-    public function handle(UserRegistered $event): void
-    {
-        if (!$event->user || !$event->user->exists) {
-            Log::warning('Attempted to setup account for invalid user.');
+        if (!$user instanceof User || !$user->exists) {
+            Log::warning('SetupNewUserAccount: Invalid user in event.', [
+                'event_user' => $user
+            ]);
             return;
         }
 
         Bus::chain([
-            new CreateDefaultProject($event->user),
-            new CreateWelcomeNote($event->user),
-            new SeedUserPreferences($event->user),
+            new CreateDefaultProject($user),
+            new CreateWelcomeNote($user),
+            new SeedUserPreferences($user),
         ])
-            ->catch(function (Throwable $e) use ($event) {
-                Log::error("User Onboarding Chain failed for User ID: {$event->user->id}", [
+            ->catch(function (Throwable $e) use ($user) {
+                Log::error("User Onboarding Chain failed for User ID: {$user->id}", [
                     'error' => $e->getMessage(),
                 ]);
             })

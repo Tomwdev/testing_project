@@ -30,7 +30,7 @@ class CreateWelcomeNote implements ShouldQueue
                 'title' => 'Welcome to your Notes',
             ],
             [
-                'body' => 'This is a sample note.\n\nYou can edit this, delete it, or add tags to organize your thoughts.'
+                'body' => "This is a sample note.\n\nYou can edit this, delete it, or add tags to organize your thoughts."
             ]
         );
     }

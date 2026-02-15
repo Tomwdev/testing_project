@@ -6,6 +6,7 @@ use App\Jobs\SendWelcomeEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisteredUserController extends Controller
 {
@@ -29,6 +30,8 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create($attributes);
+
+        event(new Registered($user));
 
         // This job is now handled by the listener for the UserRegistered event
         // SendWelcomeEmail::dispatch($user);
