@@ -54,10 +54,3 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth');
-
-// Bulk Tag Assignment Routes (auth temporarily disabled for testing)
-Route::middleware('auth')->group(function () {
-    Route::post('/bulk-tags', [BulkTagController::class, 'store']);
-    Route::get('/bulk-tags/{batchId}', [BulkTagController::class, 'show']);
-    Route::delete('/bulk-tags/{batchId}', [BulkTagController::class, 'cancel']);
-});
